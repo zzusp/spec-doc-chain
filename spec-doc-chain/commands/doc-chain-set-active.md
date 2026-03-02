@@ -12,4 +12,4 @@ description: 设置当前默认需求目录（写入 spec/.active），后续未
 3. 将 **spec/.active** 内容写为该需求目录路径（单行）。**推荐**使用带 `spec/` 前缀的路径（如 `spec/2025-03-02/user-center-refactor`）；若 spec 目录不存在则先创建。路径格式见 reference/multi-requirement.md。
 4. 回复确认：「当前需求已设为 `spec/YYYY-MM-DD/<名称>`，后续生成、级联更新、澄清同步等未指定需求的操作将默认针对该目录。」并可选列出该目录下已有文档。
 
-与 spec-agent 共用工作区时，同一 `spec/.active` 可被 spec-agent 的 set-active 与本命令共同更新。
+与其它使用 `spec/.active` 的工具共用工作区时，同一文件可被共同更新。外部引用见 [reference/spec-agent-reference.md](reference/spec-agent-reference.md)。

@@ -34,7 +34,7 @@
 - 无
 <!-- CLARIFICATIONS:END -->
 
-## 依赖签名（与 spec-agent 兼容时可保留；哈希由 spec-agent 脚本或流程更新）
+## 依赖签名（哈希由外部流程更新；详见 reference/spec-agent-reference.md）
 <!-- DEPENDENCY-SIGNATURE:START -->
 - analysis: 
 - prd: 

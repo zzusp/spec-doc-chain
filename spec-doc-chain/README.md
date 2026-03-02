@@ -6,7 +6,7 @@
 
 **通过用户不断的澄清，从而不断完善所有工程文档。** 文档链的生成与级联更新会自然产生待确认、待决策点；这些点会进入澄清文档，由用户补充或确认；用户的澄清结论回写到分析报告、PRD、技术设计、验收清单后，文档得以迭代完善。该「生成/更新 → 提取待澄清 → 用户澄清 → 回写文档」的循环是文档质量持续提升的主线，澄清文档是连接用户与整套工程文档的枢纽。详见 [reference/core-philosophy.md](reference/core-philosophy.md)。
 
-**与 [spec-agent](https://github.com/cursor/plugins) 兼容**：默认使用相同路径与文件名约定（`spec/` 根路径 + `01-analysis.md`、`02-prd.md`、`03-tech.md`、`04-acceptance.md`、`00-clarifications.md`），可与 spec-agent 工作区共用或迁移；澄清文档本插件仅维护 .md，.json 由 spec-agent 按需维护。撰写前若存在 `spec/00-global-memory.md` 会作为全局约束纳入。
+默认使用 `spec/` 根路径与固定文件名（`01-analysis.md`、`02-prd.md`、`03-tech.md`、`04-acceptance.md`、`00-clarifications.md`）；澄清文档本插件仅维护 .md。撰写前若存在 `spec/00-global-memory.md` 会作为全局约束纳入。外部引用记录见 [reference/spec-agent-reference.md](reference/spec-agent-reference.md)。
 
 ## 文档类型与顺序
 
@@ -16,13 +16,13 @@
 | 2    | PRD        | `02-prd.md` | 产品需求文档 |
 | 3    | 系统技术设计 | `03-tech.md` | 技术方案/架构与实现 |
 | 4    | 验收清单   | `04-acceptance.md` | 可验收条目（A-xxx） |
-| 5    | 澄清       | `00-clarifications.md` | 待澄清项与澄清结论（本插件仅维护 .md；与 spec-agent 共用时 .json 由 spec-agent 按需维护） |
+| 5    | 澄清       | `00-clarifications.md` | 待澄清项与澄清结论（本插件仅维护 .md） |
 
 详见 [reference/doc-types-and-order.md](reference/doc-types-and-order.md)。流程环节与流转衔接见 [reference/flow-overview.md](reference/flow-overview.md)；**防死循环兜底**见 flow-overview 第八节「流程兜底」。
 
 ## 文档生成路径（按日期 + 需求名称）
 
-所有生成的文档**默认**放在（与 spec-agent 一致）：
+所有生成的文档**默认**放在：
 
 ```
 spec/<YYYY-MM-DD>/<需求名称>/
@@ -34,22 +34,13 @@ spec/<YYYY-MM-DD>/<需求名称>/
 
 ## 文档模板
 
-各文档类型均有统一模板框架（与 spec-agent 章节对齐），生成时按模板填充。模板位于 `templates/` 目录：
+各文档类型均有统一模板框架，生成时按模板填充。模板位于 `templates/` 目录：
 
 - 分析报告 → [templates/01-analysis.md](templates/01-analysis.md)
 - PRD → [templates/02-prd.md](templates/02-prd.md)
 - 系统技术设计 → [templates/03-tech.md](templates/03-tech.md)
 - 验收清单 → [templates/04-acceptance.md](templates/04-acceptance.md)
 - 澄清 → [templates/00-clarifications.md](templates/00-clarifications.md)
-
-## 与 spec-agent 的兼容性
-
-- **路径**：默认 `spec/YYYY-MM-DD/<需求名称>/`，与 spec-agent 的 task 路径一致。
-- **文件名**：`01-analysis.md`、`02-prd.md`、`03-tech.md`、`04-acceptance.md`、`00-clarifications.md`，与 spec-agent 一致（本插件不生成 `00-clarifications.json`，由 spec-agent 脚本按需维护）。
-- **全局记忆**：若存在 `spec/00-global-memory.md`，撰写任一份文档前会读取并作为全局约束；若不存在可先创建并写入最小模板（见 [reference/00-global-memory-example.md](reference/00-global-memory-example.md)）。单次需求范围/结论不写入全局记忆。
-- **澄清**：仅维护 `00-clarifications.md`；表格列与 spec-agent（ID、状态、优先级、影响范围、归属文档、关联章节、问题/待确认点、用户确认/补充、解决方案）一致。
-- **修订记录**：每份文档含 `## 修订记录` 表，每次更新追加一行。
-- **DEPENDENCY-SIGNATURE**：02/03/04 模板中含依赖签名区块占位，哈希由 spec-agent 脚本或流程更新；本插件不修改签名内容。若需 final-check、subagent、sync-memory 等，请配合使用 spec-agent。
 
 ## 使用方式
 

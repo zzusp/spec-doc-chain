@@ -1,6 +1,6 @@
 # spec-doc-chain 插件：全面分析报告
 
-本文档对当前插件进行系统化、专业化分析，涵盖结构完整性、设计一致性、可优化点与建议追加能力。分析基准：Cursor 插件规范、spec-agent 兼容约定、以及插件自述的「文档链 + 澄清双向同步 + 统一入口」目标。
+本文档对当前插件进行系统化、专业化分析，涵盖结构完整性、设计一致性、可优化点与建议追加能力。分析基准：Cursor 插件规范、插件自述的「文档链 + 澄清双向同步 + 统一入口」目标；外部约定引用见 reference/spec-agent-reference.md。
 
 ---
 
@@ -131,7 +131,7 @@
 
 ### 7.1 模板
 
-- 01/02/03/04/00 结构完整，与 reference 描述一致；02/03/04 含 DEPENDENCY-SIGNATURE 占位，与 spec-agent 兼容说明一致。
+- 01/02/03/04/00 结构完整，与 reference 描述一致；02/03/04 含 DEPENDENCY-SIGNATURE 占位，约定见 reference/spec-agent-reference.md。
 - 01-analysis 中 `spec/db/{scheme}-{dbname}-schema.md` 的引用在 path-convention 中未单独说明；若希望统一，可在 path-convention 增加一句「数据库 schema 等可放在 spec/db/ 下，分析报告可引用」，避免被当作未定义路径。
 
 ### 7.2 reference
@@ -162,10 +162,10 @@
 - **现状**：模板示例为 C-001，sync-clarification 要求「新增一行」「若尚未存在」；未明确 C-xxx 由谁生成、是否自增、多轮追加是否可能重复或冲突。
 - **建议**：在 sync-clarification 或 reference 中约定：C-xxx 由 agent 在插入新行时分配，规则为同需求目录内已有最大编号 +1；若澄清文档被用户手改编号，agent 以「不重复 ID」为原则分配新号。避免两处同时插入都写成 C-002 等。
 
-### 8.4 与 spec-agent 的边界（文档化即可）
+### 8.4 与外部工具的边界（文档化即可）
 
-- **现状**：README 已说明 00-clarifications.json、DEPENDENCY-SIGNATURE、final-check、subagent、sync-memory 等由 spec-agent 负责。
-- **建议**：在 README 或 reference 中增加一小节「与 spec-agent 的分工」，用表格列出「本插件负责 / spec-agent 负责」，便于混合使用时不会重复实现或漏实现。
+- **现状**：分工与兼容性已收敛到 reference/spec-agent-reference.md，主文档（如 README）不展开。
+- **建议**：若需表格化「本插件负责 / 外部工具负责」，可在 reference/spec-agent-reference.md 中补充。
 
 ### 8.5 版本与变更说明（可选）
 
@@ -184,9 +184,9 @@
 | 中     | 体验     | spec-doc-chat 表增加「从 PRD/技术设计开始生成」的示例 |
 | 中     | 可选能力 | 澄清项 C-xxx 的分配与冲突避免约定 |
 | 低     | 增强     | 文档链健康检查命令或意图；「仅刷新验收清单」的级联模式 |
-| 低     | 文档     | path-convention 提一句 spec/db/；与 spec-agent 分工表；CHANGELOG/版本历史 |
+| 低     | 文档     | path-convention 提一句 spec/db/；分工表见 reference/spec-agent-reference.md；CHANGELOG/版本历史 |
 
-按上述顺序实施，可先完成「高」与「中」项，再视需要做「低」项与设计追加，在保持与 spec-agent 兼容的前提下，提升插件一致性、可预测性与可维护性。
+按上述顺序实施，可先完成「高」与「中」项，再视需要做「低」项与设计追加，在保持约定一致（见 reference/spec-agent-reference.md）的前提下，提升插件一致性、可预测性与可维护性。
 
 ---
 
