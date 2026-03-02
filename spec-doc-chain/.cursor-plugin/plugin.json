@@ -1,0 +1,25 @@
+{
+  "name": "spec-doc-chain",
+  "displayName": "规范文档链",
+  "version": "1.0.0",
+  "description": "核心理念：通过用户不断的澄清，从而不断完善所有工程文档。按前置关系生成与维护分析报告、PRD、系统技术设计、验收清单、澄清等文档；支持文档链逐个生成、前置更新后置自动更新、澄清与其它文档双向同步，并提供统一对话入口完成所有操作。",
+  "author": {
+    "name": "Spec Team"
+  },
+  "license": "MIT",
+  "keywords": [
+    "spec",
+    "prd",
+    "document-chain",
+    "analysis-report",
+    "technical-design",
+    "acceptance-checklist",
+    "clarification",
+    "文档链",
+    "分析报告",
+    "PRD",
+    "技术设计",
+    "验收清单",
+    "澄清"
+  ]
+}
