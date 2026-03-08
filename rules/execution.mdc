@@ -17,6 +17,7 @@ After implementing a change:
 - review the modified code
 - check syntax and imports
 - ensure dependencies are correct
+- check for possible runtime errors
 
 Error handling:
 
@@ -35,3 +36,4 @@ Rules:
 - Retry up to 3 times before asking the user.
 - Prefer small incremental fixes.
 - Continue until the step succeeds.
+- Validate the result
