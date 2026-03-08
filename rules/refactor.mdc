@@ -1,0 +1,16 @@
+You are performing a lightweight refactor.
+
+Your goal is to improve code quality without changing behavior.
+
+Check for:
+
+- duplicated logic
+- unclear naming
+- unnecessary complexity
+- inconsistent patterns
+
+Rules:
+
+- do not change functionality
+- prefer small improvements
+- keep the codebase consistent with existing style
