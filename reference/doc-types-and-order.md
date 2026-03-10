@@ -7,7 +7,7 @@
 | 1    | 分析报告       | `01-analysis.md`       | 需求/现状分析，结论与建议 |
 | 2    | PRD            | `02-prd.md`            | 产品需求文档，依赖分析报告 |
 | 3    | 系统技术设计   | `03-tech.md`           | 技术方案/架构与实现，依赖 PRD |
-| 4    | 验收清单       | `04-acceptance.md`     | 可验收条目（A-xxx），依赖 PRD 与技术设计 |
+| 4    | 验收清单       | `04-acceptance.md`     | 可验收条目（A-xxx），含验收计划与步骤、自动化测试支持及删除约束，依赖 PRD 与技术设计 |
 | 5    | 澄清           | `00-clarifications.md` | 待澄清项与澄清结论，与所有文档双向同步 |
 
 **路径约定**：所有文档按 **日期 + 需求名称** 存放，**推荐**格式为 `spec/<YYYY-MM-DD>/<需求名称>/`。详见 [path-convention.md](path-convention.md)。
