@@ -1,0 +1,7 @@
+.cursor/skills
+
+# 技能评测运行产物（保留 skills/*/evals/evals.json 与 README-EVAL-ASSERTIONS.md 用于复现评测）
+skills/*-workspace/
+skills/*/evals/
+
+spec
