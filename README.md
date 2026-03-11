@@ -41,6 +41,7 @@ spec/<YYYY-MM-DD>/<需求名称>/
 - 系统技术设计 → [templates/03-tech.md](templates/03-tech.md)
 - 验收清单 → [templates/04-acceptance.md](templates/04-acceptance.md)
 - 澄清 → [templates/00-clarifications.md](templates/00-clarifications.md)
+- 交付日志 → [templates/05-delivery-log.md](templates/05-delivery-log.md)
 
 ## 使用方式
 
@@ -65,6 +66,7 @@ Agent 会解析意图并调度对应技能完成操作。
 | `cascade-update`     | 前置文档更新后级联更新后置文档 |
 | `sync-clarification` | 澄清文档与其它文档双向同步（提取待澄清 / 澄清回写） |
 | `spec-doc-chat`      | 统一入口：解析意图并调度上述操作 |
+| `spec-delivery-chat` | 交付入口：基于已完成 spec 文档执行“开发→验收→修复…”直至全部验收项通过，并落盘交付日志 |
 
 ### 命令
 
@@ -80,6 +82,7 @@ Agent 会解析意图并调度对应技能完成操作。
 ### Agent
 
 - **doc-chain-orchestrator**：编排 agent，通过统一入口理解意图并调度生成、级联、澄清同步，保证文档链与澄清一致。
+- **delivery-orchestrator**：交付闭环编排 agent；调度 `spec-delivery-chat` 执行实现与验收循环直至通过，并记录交付日志。
 
 ## 规则
 
