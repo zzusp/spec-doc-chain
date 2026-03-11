@@ -1,6 +1,6 @@
 ---
 name: spec-doc-chat
-description: 规范文档链的统一对话入口。将用户的自然语言请求解析为「按序生成、更新某文档、级联更新、澄清同步、查看状态」等操作，并调度 generate-doc-chain、analyze-existing-project、cascade-update、sync-clarification 完成。在用户通过对话进行任意文档链相关操作时使用。
+description: 规范文档链的统一对话入口。将用户的自然语言请求解析为「按序生成、更新某文档、级联更新、澄清同步、查看状态」等操作，并调度 generate-doc-chain、analyze-existing-project、cascade-update、sync-clarification 完成（含分析已有项目）。在用户通过对话进行任意文档链相关操作时使用。
 ---
 
 # 统一对话入口

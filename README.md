@@ -20,7 +20,7 @@
 | 6    | 交付日志   | `05-delivery-log.md` | 交付闭环过程总览：首页仪表盘 + 验收项状态总表（A-xxx）+ 各轮次索引 |
 | 7    | 交付轮次（每轮详情） | `delivery-rounds/round-<NN>.md`（模板 `templates/05-delivery-round.md`） | 每轮验收的详细记录与可见证据，主日志引用 |
 
-详见 [reference/doc-types-and-order.md](reference/doc-types-and-order.md)（该页仅含 01–00 文档链；交付日志与轮次见上表及 [skills/spec-delivery-chat/SKILL.md](skills/spec-delivery-chat/SKILL.md)）。流程环节与流转衔接见 [reference/flow-overview.md](reference/flow-overview.md)；**防死循环兜底**见 flow-overview 第八节「流程兜底」。
+详见 [reference/doc-types-and-order.md](reference/doc-types-and-order.md)（该页仅含 01–00 文档链；交付日志与轮次见上表及 [skills/spec-delivery-chat/SKILL.md](skills/spec-delivery-chat/SKILL.md)）。流程环节与流转衔接见 [reference/flow-overview.md](reference/flow-overview.md)；**防死循环兜底**见 flow-overview 第八节「流程兜底」。术语统一说明见 [reference/glossary.md](reference/glossary.md)。
 
 ## 文档生成路径（按日期 + 需求名称）
 
@@ -116,7 +116,11 @@ Agent 会解析意图并调度对应技能（文档链 → `spec-doc-chat`，交
 
 ## 安装
 
-将本目录作为 Cursor 插件安装（项目级或用户级），确保 `.cursor-plugin/plugin.json` 存在。安装后规则与技能会出现在 Cursor 设置中；文档链统一入口由编排 agent 与 `spec-doc-chat` 提供，交付闭环由 `delivery-orchestrator` 与 `spec-delivery-chat` 提供。
+将本目录作为 Cursor 插件安装（项目级或用户级），确保 `.cursor-plugin/plugin.json` 存在。
+
+- **启用方式**：在 Cursor 设置中打开插件/扩展，添加或启用本插件；可选择**项目级**（仅当前仓库）或**用户级**（全局可用）。
+- 安装后规则与技能会出现在 Cursor 设置中；文档链统一入口由编排 agent 与 `spec-doc-chat` 提供，交付闭环由 `delivery-orchestrator` 与 `spec-delivery-chat` 提供。
+- 首次使用建议先看 [reference/quick-start.md](reference/quick-start.md) 快速跑通一条文档链与交付。
 
 ## 许可证
 
