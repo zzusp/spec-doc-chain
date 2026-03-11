@@ -42,6 +42,7 @@ spec/<YYYY-MM-DD>/<需求名称>/
 - 验收清单 → [templates/04-acceptance.md](templates/04-acceptance.md)
 - 澄清 → [templates/00-clarifications.md](templates/00-clarifications.md)
 - 交付日志 → [templates/05-delivery-log.md](templates/05-delivery-log.md)
+- 交付轮次 → [templates/05-delivery-round.md](templates/05-delivery-round.md)（每轮验收详细记录与证据，主日志引用）
 
 ## 使用方式
 
@@ -78,11 +79,15 @@ Agent 会解析意图并调度对应技能完成操作。
 | `doc-chain-sync-clarification` | 执行澄清双向同步 |
 | `doc-chain-set-active`         | 设置当前默认需求（写入 spec/.active） |
 | `doc-chain-list`               | 列出 spec/ 下所有需求目录及当前激活需求 |
+| `spec-delivery-run`            | 交付闭环入口：基于已完成 spec 执行开发→验收→修复直至全部通过，并落盘交付日志 |
 
 ### Agent
 
 - **doc-chain-orchestrator**：编排 agent，通过统一入口理解意图并调度生成、级联、澄清同步，保证文档链与澄清一致。
 - **delivery-orchestrator**：交付闭环编排 agent；调度 `spec-delivery-chat` 执行实现与验收循环直至通过，并记录交付日志。
+- **test-runner**：测试自动化，主动跑测、分析失败并修复。
+- **verifier**：任务完成后校验实现是否真实可用、是否遗漏边界。
+- **debugger**：错误与失败根因分析，最小修复并验证。
 
 ## 规则
 
@@ -90,6 +95,8 @@ Agent 会解析意图并调度对应技能完成操作。
 - **clarification-sync**：澄清文档与其它文档的写入/回写规则（在澄清相关文件下生效）。
 - **delivery**：实现阶段的完整交付闭环（开发→测试/验收→修复→再验收直至通过）；仅写需求文档时不强制。
 - **coding**：代码复用、文件约束、注释、根因修复与 YAGNI；仅编辑纯需求文档（.md）时可酌情适用。
+- **refactor**：轻量重构（去重复、命名清晰、减复杂度），不改变行为。
+- **execution**：按计划执行步骤、最小安全改动、改后做语法/依赖/运行校验。
 
 ## 安装
 
