@@ -6,7 +6,7 @@
 
 **通过用户不断的澄清，从而不断完善所有工程文档。** 文档链的生成与级联更新会自然产生待确认、待决策点；这些点会进入澄清文档，由用户补充或确认；用户的澄清结论回写到分析报告、PRD、技术设计、验收清单后，文档得以迭代完善。该「生成/更新 → 提取待澄清 → 用户澄清 → 回写文档」的循环是文档质量持续提升的主线，澄清文档是连接用户与整套工程文档的枢纽。详见 [reference/core-philosophy.md](reference/core-philosophy.md)。
 
-默认使用 `spec/` 根路径与固定文件名（`01-analysis.md`、`02-prd.md`、`03-tech.md`、`04-acceptance.md`、`00-clarifications.md`）；澄清文档本插件仅维护 .md。撰写前若存在 `spec/00-global-memory.md` 会作为全局约束纳入。外部引用记录见 [reference/spec-agent-reference.md](reference/spec-agent-reference.md)。
+默认使用 `spec/` 根路径与固定文件名：文档链为 `01-analysis.md`、`02-prd.md`、`03-tech.md`、`04-acceptance.md`、`00-clarifications.md`，交付阶段另有 `05-delivery-log.md` 与 `delivery-rounds/round-<NN>.md`；澄清文档本插件仅维护 .md。撰写前若存在 `spec/00-global-memory.md` 会作为全局约束纳入；多需求时用 `spec/.active` 记录当前默认需求目录。外部引用记录见 [reference/spec-agent-reference.md](reference/spec-agent-reference.md)。
 
 ## 文档类型与顺序
 
@@ -17,8 +17,10 @@
 | 3    | 系统技术设计 | `03-tech.md` | 技术方案/架构与实现 |
 | 4    | 验收清单   | `04-acceptance.md` | 可验收条目（A-xxx） |
 | 5    | 澄清       | `00-clarifications.md` | 待澄清项与澄清结论（本插件仅维护 .md） |
+| 6    | 交付日志   | `05-delivery-log.md` | 交付闭环过程总览：首页仪表盘 + 验收项状态总表（A-xxx）+ 各轮次索引 |
+| 7    | 交付轮次（每轮详情） | `delivery-rounds/round-<NN>.md`（模板 `templates/05-delivery-round.md`） | 每轮验收的详细记录与可见证据，主日志引用 |
 
-详见 [reference/doc-types-and-order.md](reference/doc-types-and-order.md)。流程环节与流转衔接见 [reference/flow-overview.md](reference/flow-overview.md)；**防死循环兜底**见 flow-overview 第八节「流程兜底」。
+详见 [reference/doc-types-and-order.md](reference/doc-types-and-order.md)（该页仅含 01–00 文档链；交付日志与轮次见上表及 [skills/spec-delivery-chat/SKILL.md](skills/spec-delivery-chat/SKILL.md)）。流程环节与流转衔接见 [reference/flow-overview.md](reference/flow-overview.md)；**防死循环兜底**见 flow-overview 第八节「流程兜底」。
 
 ## 文档生成路径（按日期 + 需求名称）
 
@@ -26,7 +28,17 @@
 
 ```
 spec/<YYYY-MM-DD>/<需求名称>/
+├── 00-clarifications.md
+├── 01-analysis.md
+├── 02-prd.md
+├── 03-tech.md
+├── 04-acceptance.md
+├── 05-delivery-log.md
+└── delivery-rounds/
+    └── round-<NN>.md    # 每轮详情，模板见 templates/05-delivery-round.md
 ```
+
+**spec 根下**还可有：`spec/00-global-memory.md`（全局约束，撰写 01–04 时若存在则纳入）、`spec/.active`（当前默认需求目录路径，多需求时生效）。
 
 例如：`spec/2025-03-02/user-center-refactor/`。生成前若未提供需求名称或日期，会向用户确认。详见 [reference/path-convention.md](reference/path-convention.md)。可选使用 `docs/` 根路径与长文件名，见 path-convention。
 
