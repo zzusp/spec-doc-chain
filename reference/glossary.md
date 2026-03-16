@@ -6,6 +6,7 @@
 |------|------|
 | **待确认 / 已确认** | 澄清文档中每条澄清项的**状态**。仅可填写此二值：`待确认` 表示待用户填写结论；`已确认` 表示用户已填写并可回写至其它文档。见 [templates/00-clarifications.md](../templates/00-clarifications.md)、[sync-clarification](../skills/sync-clarification/SKILL.md)。 |
 | **C-xxx** | 澄清项 ID，如 C-001、C-002。由 agent 在向澄清文档新增行时分配，同需求目录内取已有最大编号 +1；若用户手改编号，以不重复 ID 为原则分配。见 [sync-clarification](../skills/sync-clarification/SKILL.md)。 |
+| **CC-xxx** | Context Collector 专用临时澄清 ID，如 CC-001、CC-002。仅出现在 `context-input.md` 的「待澄清项」表，用于标记从外部原始输入中识别出的多义/缺失点；后续由文档链流程在提取待澄清时**转换为正式 C-xxx 写入 `00-clarifications.md`**，转换规则为：在目标需求目录下读取当前 `00-clarifications.md` 中最大 C 号 +1 作为新 C-xxx，将对应 CC-xxx 的问题迁移为该 C-xxx，并在 `context-input.md` 中注明对应关系。见 [context-collector-agent](../agents/context-collector-agent.md)。 |
 | **A-xxx** | 验收项 ID，如 A-001、A-002。出现在 `04-acceptance.md` 中，每条对应可执行、可断言的验收条目。交付流程以「全部 A-xxx 在本流程内通过」为完成标准。见 [doc-types-and-order.md](doc-types-and-order.md)、[spec-delivery-chat](../skills/spec-delivery-chat/SKILL.md)。 |
 | **R-xx** | 需求编号（可选）。用于在 PRD/技术设计/验收清单中做需求追溯，使 A-xxx 能对应到具体需求与设计。见 [doc-types-and-order.md](doc-types-and-order.md)、[spec-agent-reference.md](spec-agent-reference.md)。 |
 | **级联更新** | 前置文档（分析报告、PRD、技术设计、验收清单之一）被更新后，按 01→02→03→04 的前置→后置关系依次更新其后置文档，并在每份更新后执行澄清提取。见 [cascade-update](../skills/cascade-update/SKILL.md)、[flow-overview.md](flow-overview.md)。 |

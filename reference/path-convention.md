@@ -13,13 +13,17 @@
 
 **目录内固定文件名**：
 
-| 文档类型     | 文件名 | 说明 |
-|--------------|--------|------|
-| 分析报告     | `01-analysis.md` | 需求/现状分析、结论与建议 |
-| PRD          | `02-prd.md` | 产品需求文档 |
-| 系统技术设计 | `03-tech.md` | 技术方案/架构与实现 |
-| 验收清单     | `04-acceptance.md` | 可验收条目（A-xxx） |
-| 澄清 | `00-clarifications.md` | 待澄清项与澄清结论，表格 + 修订记录 |
+| 文档类型           | 文件名 | 说明 |
+|--------------------|--------|------|
+| 分析报告           | `01-analysis.md` | 需求/现状分析、结论与建议 |
+| PRD                | `02-prd.md` | 产品需求文档 |
+| 系统技术设计       | `03-tech.md` | 技术方案/架构与实现 |
+| 验收清单           | `04-acceptance.md` | 可验收条目（A-xxx） |
+| 澄清               | `00-clarifications.md` | 待澄清项与澄清结论，表格 + 修订记录 |
+| 讨论记录           | `06-discussion-log.md` | 多 agent 分歧、重大假设与被否决方案的决策过程（由 `record-discussion` 写入） |
+| 交付复盘           | `07-retrospective.md` | 单个需求的交付复盘与可复用约定候选（由 `retrospective-agent` 写入） |
+| 上游需求输入摘要   | `context-input.md` | 外部原始输入（Jira、会议纪要等）经 `context-collector-agent` 清洗后的结构化需求上下文 |
+| 文档代码漂移报告   | `spec-drift-report.md` | `spec-drift-detector` 生成的文档与代码漂移报告 |
 
 ## 可选格式（本插件原有）
 

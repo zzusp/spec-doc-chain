@@ -55,6 +55,8 @@ spec/<YYYY-MM-DD>/<需求名称>/
 - 澄清 → [templates/00-clarifications.md](templates/00-clarifications.md)
 - 交付日志 → [templates/05-delivery-log.md](templates/05-delivery-log.md)
 - 交付轮次 → [templates/05-delivery-round.md](templates/05-delivery-round.md)（每轮验收详细记录与证据，主日志引用）
+- 讨论记录 → [templates/06-discussion-log.md](templates/06-discussion-log.md)（多 agent 分歧、重大假设与被否决方案的决策过程，由 `record-discussion` 写入）
+- 交付复盘 → [templates/07-retrospective.md](templates/07-retrospective.md)（单个需求的交付复盘与可复用约定候选，由 `retrospective-agent` 写入）
 
 ## 使用方式
 
@@ -101,9 +103,14 @@ Agent 会解析意图并调度对应技能（文档链 → `spec-doc-chat`，交
 
 - **doc-chain-orchestrator**：编排 agent，通过统一入口理解意图并调度生成、级联、澄清同步，保证文档链与澄清一致。
 - **delivery-orchestrator**：交付闭环编排 agent；调度 `spec-delivery-chat` 执行实现与验收循环直至通过，并记录交付日志。
+- **context-collector-agent**：需求来源注入 agent；在进入文档链主流程前，将 Jira ticket、会议纪要、外部 PRD、口述转录等原始材料清洗成结构化的 `context-input.md`，供后续文档生成消费。
+- **spec-drift-detector**：文档代码漂移检测 agent；在交付轮次结束后或按需触发，对比 02/03/04 与实际代码，输出 `spec-drift-report.md`，提示「文档有但代码无」「代码有但文档无」「两者不一致」等漂移类型。
+- **retrospective-agent**：交付复盘与知识沉淀 agent；在全部 A-xxx 通过后生成 `07-retrospective.md` 复盘摘要，并在用户确认后将可复用约定候选沉淀到 `spec/00-global-memory.md`。
 - **test-runner**：测试自动化，主动跑测、分析失败并修复。
 - **verifier**：任务完成后校验实现是否真实可用、是否遗漏边界。
 - **debugger**：错误与失败根因分析，最小修复并验证。
+
+> 说明：`doc-agent-stance`、`doc-agent-discussion`、`record-discussion` 等技能为编排内部的子技能，用于多 agent 表态、讨论与决策过程记录（`06-discussion-log.md`），通常由 orchestrator 间接调用，无需用户直接记忆技能名。
 
 ## 规则
 
