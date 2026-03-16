@@ -34,6 +34,8 @@ spec/<YYYY-MM-DD>/<需求名称>/
 ├── 03-tech.md
 ├── 04-acceptance.md
 ├── 05-delivery-log.md
+├── 06-discussion-log.md
+├── 07-retrospective.md
 └── delivery-rounds/
     └── round-<NN>.md    # 每轮详情，模板见 templates/05-delivery-round.md
 ```

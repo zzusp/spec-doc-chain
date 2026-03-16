@@ -16,7 +16,19 @@
 
 ---
 
-## 二、按序生成文档链（generate-doc-chain）
+## 二、需求来源注入（context-collector-agent）
+
+| 环节 | 说明 |
+|------|------|
+| **入口** | 用户提供 Jira ticket、会议纪要、外部 PRD 草稿、口述录音转录等原始材料，并希望据此开启规范文档链；或显式调用 `context-collector-agent`。 |
+| **前置** | 解析目标需求目录（见「一、目标需求解析」）；若目录不存在，则与用户确认需求名称后创建 `spec/<日期>/<需求名称>/`。 |
+| **步骤** | 解析原始输入 → 提取需求标题、背景、核心功能意图、排除项、依赖等字段 → 识别其中的冲突、多义和缺失信息并标记为 CC-xxx → 在需求目录下生成或更新 `context-input.md`（结构化需求输入摘要） → 可选：提示用户是否将项目级约束沉淀到 `spec/00-global-memory.md`（需用户确认后由后续流程写入）。 |
+| **出口** | 产出 `context-input.md`，并告知核心功能意图数量与 CC-xxx 待澄清项数量；建议下一步使用 `spec-doc-chat` 或 `generate-doc-chain` 从该需求目录开始生成文档链。 |
+| **衔接** | 文档链生成（generate-doc-chain / analyze-existing-project）在撰写 01/02/03 时，可将 `context-input.md` 作为上游输入参考；CC-xxx 随后在澄清提取阶段转化为正式 C-xxx 写入 `00-clarifications.md`。 |
+
+---
+
+## 三、按序生成文档链（generate-doc-chain）
 
 | 环节 | 说明 |
 |------|------|
@@ -28,7 +40,7 @@
 
 ---
 
-## 三、级联更新（cascade-update）
+## 四、级联更新（cascade-update）
 
 | 环节 | 说明 |
 |------|------|
@@ -42,7 +54,7 @@
 
 ---
 
-## 四、澄清双向同步（sync-clarification）
+## 五、澄清双向同步（sync-clarification）
 
 ### 方向一：其它文档 → 澄清文档（提取待澄清）
 
@@ -63,7 +75,7 @@
 
 ---
 
-## 五、分析已有项目（analyze-existing-project）
+## 六、分析已有项目（analyze-existing-project）
 
 | 环节 | 说明 |
 |------|------|
@@ -74,7 +86,7 @@
 
 ---
 
-## 六、多需求管理（list / set-active）
+## 七、多需求管理（list / set-active）
 
 | 环节 | 说明 |
 |------|------|
@@ -84,7 +96,7 @@
 
 ---
 
-## 七、统一入口与编排（spec-doc-chat / doc-chain-orchestrator）
+## 八、统一入口与编排（spec-doc-chat / doc-chain-orchestrator）
 
 - 将自然语言解析为上述任一流程或组合。
 - 多步可串联：如先 cascade-update 再提示用户澄清并执行 sync-clarification 方向二。
@@ -92,7 +104,7 @@
 
 ---
 
-## 八、交付闭环入口（spec-delivery-chat / delivery-orchestrator）
+## 九、交付闭环入口（spec-delivery-chat / delivery-orchestrator）
 
 当用户已完成文档链并进入实现阶段时，使用交付入口执行完整闭环：
 
@@ -113,7 +125,7 @@
 
 ---
 
-## 九、流程兜底（防死循环）
+## 十、流程兜底（防死循环）
 
 - **澄清提取去重**：提取待澄清项时，若 00 中已有**同来源、同问题**的项，只更新描述不新增行。若某段落已有对应澄清项且该段落**无实质性变更**，跳过该段落。若与已有项**同归属文档且关联章节重叠且问题语义相似**，则不新增行，避免同一处反复被标为待澄清；同一章节内**不同问题**（如范围 vs 优先级）仍可新增。
 - **回写后提取**：回写后**仍须执行**「对新内容的澄清提取」（通读、识别），仅插入**本次更新引入的新表述**且经去重后确属新点的项；若无则本步不新增行。不得跳过本步。
@@ -122,7 +134,31 @@
 
 ---
 
-## 十、流转自检清单
+## 十一、交付后收尾一：文档代码漂移检测（spec-drift-detector）
+
+| 环节 | 说明 |
+|------|------|
+| **入口** | `spec-delivery-chat` / delivery-orchestrator 宣告本需求全部 A-xxx 通过后，用户希望检查「代码与 02/03/04 是否仍然对齐」；或显式调用 `spec-drift-detector`。 |
+| **前置** | 解析目标需求目录；读取 `02-prd.md`（辅助）、`03-tech.md`、`04-acceptance.md` 作为 spec 基准；读取 `05-delivery-log.md` 与 `delivery-rounds/` 以获取本轮涉及的代码范围。 |
+| **步骤** | 从 03/04 提取接口、模型、行为等锚点 → 在代码中搜索对应实现 → 标注「文档有·代码无」（D-SPEC）、「代码有·文档无」（D-IMPL）、「两者不一致」（D-DRIFT）与「文档滞后」（D-STALE） → 将结果汇总为 `spec-drift-report.md`，包含摘要表与逐条漂移详情及建议修复路径。 |
+| **出口** | 需求目录下新增 `spec-drift-report.md`，列出各类漂移数量与严重程度，并为每条漂移给出「建议由文档链修复」或「建议由交付流程修复」的后续路径。 |
+| **衔接** | 文档需更新时：提示用户通过 `doc-chain-orchestrator` 触发 `sync-clarification` 或 `cascade-update` 修正 02/03/04；代码需修复时：提示用户通过 `delivery-orchestrator` 开启新一轮 A-xxx 开发与验收；需用户裁决时：将问题追加为 C-xxx 写入 `00-clarifications.md`。 |
+
+---
+
+## 十二、交付后收尾二：交付复盘与知识沉淀（retrospective-agent）
+
+| 环节 | 说明 |
+|------|------|
+| **入口** | 本需求的交付闭环与（可选）漂移检测完成后，用户希望做一次系统性复盘并沉淀可复用约定；或显式调用 `retrospective-agent`。 |
+| **前置** | 解析目标需求目录；读取 `05-delivery-log.md`、`delivery-rounds/round-*.md`、`06-discussion-log.md`（若存在）、`00-clarifications.md`、`03-tech.md`、`04-acceptance.md` 作为复盘材料。 |
+| **步骤** | 从上述材料中提炼澄清模式、关键技术决策、踩坑记录与可复用约定候选 → 在需求目录下生成 `07-retrospective.md`，结构化记录本次需求的复盘结论与候选约定列表（R-xxx） → 等待用户逐条确认哪些约定应写入 `spec/00-global-memory.md`。 |
+| **出口** | 需求目录下新增 `07-retrospective.md`；在用户确认后，将选中的约定以追加的方式写入 `spec/00-global-memory.md`，并在复盘中保留来源索引。 |
+| **衔接** | 后续需求在 `context-collector-agent` 与 generate-doc-chain 等环节读取 `spec/00-global-memory.md` 时，自动享受到这些跨需求复用的约定；若复盘发现文档错误或新一轮漂移，可提示再次运行 cascade-update 或 spec-drift-detector。 |
+
+---
+
+## 十三、流转自检清单
 
 - [ ] **生成链**：从 01 开始或从中间开始时，前置文档存在性已约定；00 不存在时在生成到澄清文档时创建并写入待澄清项。
 - [ ] **Whole-document review**：每份文档更新时须执行 whole-document review（见 [glossary.md](glossary.md)）。
