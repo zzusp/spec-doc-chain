@@ -18,4 +18,13 @@ Report test results with:
 - Summary of any failures
 - Changes made to fix issues
 
-**Data safety**：When tests perform delete or cleanup, only remove data created by the current test (or data explicitly marked as deletable in the spec). Never delete existing/production or unidentified data.
+**Data safety**: When tests perform delete or cleanup, only remove data created by the current test (or data explicitly marked as deletable in the spec). Never delete existing/production or unidentified data.
+
+## spec-delivery Context
+
+When invoked from within a `spec-delivery-chat` delivery loop, additional rules apply:
+
+- **A-xxx awareness**: If the invoking context identifies which acceptance items (A-xxx) are being tested, structure your test results per A-xxx so the delivery log can track them individually.
+- **Evidence format**: For each test, output results as **Expected vs Observed** pairs with visible artifacts (key response fields, SQL result rows, log keywords + traceId) — not just "test passed". This evidence will be recorded in the delivery round file.
+- **MOCK-BLOCKED signal**: If a test cannot be executed against real dependencies (requires a mock/stub), flag the affected A-xxx as `MOCK-BLOCKED` in your report. Do NOT report these as passed.
+- **No responsibility transfer**: Do not conclude "user should verify X" — if a test step requires user action to complete verification, flag it as blocked and explain what is needed.

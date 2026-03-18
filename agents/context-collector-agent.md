@@ -104,7 +104,7 @@ description: 需求来源注入 agent；将外部原始输入（Jira ticket、PR
 | CC-001 | <多义/冲突/缺失的问题> | <原始输入中的位置描述> | 高/中/低 |
 ```
 
-> CC-xxx 为 context-collector 专用前缀，与文档链的 C-xxx 区分；待 `sync-clarification` 方向一提取后会转换为正式 C-xxx 进入 `00-clarifications.md`。
+> CC-xxx 为 context-collector 专用前缀，与文档链的 C-xxx 区分；待 `extract-clarification` 提取后会转换为正式 C-xxx 进入 `00-clarifications.md`。
 
 ### 步骤 4：可选 — 更新 global-memory
 
@@ -117,15 +117,20 @@ description: 需求来源注入 agent；将外部原始输入（Jira ticket、PR
 
 ### 步骤 5：移交文档链
 
-输出 `context-input.md` 后，告知用户：
-- 已提取 N 条核心功能意图、M 条待澄清项
-- 建议下一步：调用 `doc-chain-generate-all` 或 `generate-doc-chain`，可将 `context-input.md` 作为分析报告的输入依据
-- 若有 CC-xxx 待澄清项，建议在生成文档前先填写高优先级项，减少文档链中的猜测
+输出 `context-input.md` 后：
+
+1. 告知用户：已提取 N 条核心功能意图、M 条待澄清项（CC-xxx）。
+2. **主动询问是否立即生成文档链**：
+
+   > 「`context-input.md` 已就绪。是否现在开始生成完整文档链（分析报告 → PRD → 技术设计 → 验收清单）？直接说「开始生成」即可，我会以 context-input.md 为需求输入依据。若有高优先级待澄清项（CC-xxx），也可先填写后再生成，减少文档中的猜测。」
+
+3. 用户确认后，直接调用 `generate-doc-chain`，以 `context-input.md` 的「结构化摘要」作为分析报告与 PRD 的输入，CC-xxx 待澄清项转入 `00-clarifications.md` 初始待澄清列表（转换为 C-xxx 编号）。
+4. 若用户说「先不生成」或「稍后生成」，保持等待，后续用户主动发起时调用 `generate-doc-chain`。
 
 ## 输出约定
 
 - 只产出 `context-input.md`，不修改 01–04 文档
-- 不修改 `00-clarifications.md`（由 sync-clarification 方向一负责）
+- 不修改 `00-clarifications.md`（由 extract-clarification 负责）
 - 不写入 `spec/00-global-memory.md`（仅在用户确认后提示追加）
 - 回复末尾必须给出下一步建议，推动进入文档链生成阶段
 

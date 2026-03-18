@@ -1,6 +1,7 @@
 ---
 description: 代码复用、文件约束、注释、根因修复与 YAGNI；适用于代码与脚本，仅编辑纯需求文档（.md）时可酌情适用
-alwaysApply: true
+alwaysApply: false
+globs: ["**/*.{ts,tsx,js,jsx,mjs,cjs,py,java,go,rs,cpp,c,h,cs,kt,swift,rb,php,sh,bash,sql,vue,svelte}"]
 ---
 # AI Coding 强约束规则（Cursor Rule）
 

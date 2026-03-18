@@ -1,3 +1,8 @@
+> **引用清单**（本文件被以下 skills/agents 引用，修改时同步检查）：
+> skills: `generate-doc-chain`, `analyze-existing-project`, `cascade-update`, `extract-clarification`, `writeback-clarification`, `doc-chain-status`, `spec-delivery-chat`, `spec-drift-detector`, `retrospective-agent`, `context-collector-agent`, `record-discussion`
+> agents: `delivery-orchestrator`, `doc-chain-orchestrator`
+> commands: `doc-chain-cascade-after-edit`, `doc-chain-sync-clarification`
+
 # 多需求管理
 
 当 **spec/** 下存在多个需求目录（如 `spec/2025-03-01/req-a/`、`spec/2025-03-02/req-b/`）时，通过**当前需求**与**显式指定**避免操作错目录。

@@ -8,7 +8,7 @@ description: 列出 spec/ 下所有需求目录及当前激活需求（只读，
 执行以下流程：
 
 1. 按 **reference/multi-requirement.md** 中「需求目录识别规则」扫描 **spec/**：目录为 `spec/<YYYY-MM-DD>/<名称>/`，且其下存在 `01-analysis.md`、`02-prd.md`、`03-tech.md`、`04-acceptance.md`、`00-clarifications.md` 中**任意一个**约定文件即视为有效需求目录。
-2. 若存在 **spec/.active**，读取其内容并标出该路径为**当前激活需求**；若 .active 指向的目录不存在，在列表中注明「.active 指向路径无效」。
+2. 若存在 **spec/.state.json**，读取其 `active` 字段并标出该路径为**当前激活需求**；若 `active` 指向的目录不存在，在列表中注明「.state.json 中 active 路径无效，请运行 doc-chain-set-active 修正」。
 3. 回复：列出所有需求目录路径（及可选的首行标题摘要），并标明当前激活需求。不创建、不修改任何文件。**若 spec/ 下尚无任何有效需求目录**：回复空列表并提示可新建（如通过「从分析报告开始生成整套文档」并给出需求名称）。
 
 用户可说「有哪些需求」「列出所有需求」「现在在哪个需求」等触发此命令。
