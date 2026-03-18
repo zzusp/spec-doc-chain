@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wc -l /d/project/spec-team/rules/*.mdc /d/project/spec-team/skills/*/SKILL.md /d/project/spec-team/agents/*.md /d/project/spec-team/templates/*.md)",
+      "Bash(python3:*)",
+      "Bash(python:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ]
+  }
+}

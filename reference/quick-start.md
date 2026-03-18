@@ -33,4 +33,4 @@
 | 澄清写回文档         | 「把澄清文档里第 2 条的结论写回 PRD」      |
 | 开始交付             | 「按验收清单开始开发，跑验收直到全部通过」 |
 
-更多路径与模板约定见 [path-convention.md](path-convention.md)、[doc-types-and-order.md](doc-types-and-order.md)；流程衔接见 [flow-overview.md](flow-overview.md)。
+更多路径与模板约定见 [path-convention.md](path-convention.md)、[doc-types-and-order.md](doc-types-and-order.md)；流程衔接见 [flow-overview.md](flow-overview.md)；常见问题与异常处理见 [faq.md](faq.md)；术语速查见 [glossary.md](glossary.md)。
