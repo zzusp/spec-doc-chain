@@ -98,7 +98,7 @@
 | 03-tech.md | 需要修改 | ✅ | 第1步 | 更新接口定义 |
 | 04-acceptance.md | 需要修改 | ✅ | 第2步（待03完成） | 修改 A-003 通过标准 |
 
-决策表确认后，各 agent 按自身职责执行修改，流程回归现有的 sync-clarification 方向二。
+决策表确认后，各 agent 按自身职责执行修改，流程回归 `writeback-clarification`（澄清回写）。
 
 ---
 

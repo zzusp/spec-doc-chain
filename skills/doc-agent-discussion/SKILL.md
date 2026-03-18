@@ -1,6 +1,6 @@
 ---
 name: doc-agent-discussion
-description: 在 doc-agent-stance 产出决策表后，若存在冲突、执行顺序依赖或新澄清触发，以各文档 agent 的角色身份进行结构化讨论，收敛至更新后的决策表；讨论无法收敛时，将分歧升级为待澄清项交由用户裁决。在 doc-agent-stance 之后、sync-clarification 方向二之前调用。
+description: 在 doc-agent-stance 产出决策表后，若存在冲突、执行顺序依赖或新澄清触发，以各文档 agent 的角色身份进行结构化讨论，收敛至更新后的决策表；讨论无法收敛时，将分歧升级为待澄清项交由用户裁决。在 doc-agent-stance 之后、writeback-clarification 之前调用。
 ---
 
 # 文档 Agent 结构化讨论
@@ -194,7 +194,7 @@ orchestrator 在步骤1识别冲突议题时，同时标注每个议题的分歧
 - C-003 已写入待澄清，请您确认后再执行 03-tech 的方案部分
 ```
 
-移交 sync-clarification 方向二按时序执行回写。
+移交 `writeback-clarification` 按时序执行回写。
 
 ---
 
@@ -209,7 +209,7 @@ orchestrator 在步骤1识别冲突议题时，同时标注每个议题的分歧
 
 ## 路径约定
 
-- 本技能在 `doc-agent-stance` 之后、`sync-clarification` 方向二之前调用
+- 本技能在 `doc-agent-stance` 之后、`writeback-clarification` 之前调用
 - 角色定义见：`reference/doc-agent-roles.md`
 - orchestrator 在本技能中担任**主持人**角色：控制发言顺序、判断收敛/未收敛、执行升级写入
 - 目标需求目录解析：同 `reference/multi-requirement.md`

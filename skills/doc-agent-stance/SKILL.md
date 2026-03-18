@@ -1,6 +1,6 @@
 ---
 name: doc-agent-stance
-description: 用户澄清一条事实后，以四个文档 agent 的角色身份依次表态——判断各自负责的文档是否需要更新、影响哪个章节、修改方向是什么。表态结果作为后续回写执行的依据。在 sync-clarification 方向二（澄清回写）执行前调用。
+description: 用户澄清一条事实后，以四个文档 agent 的角色身份依次表态——判断各自负责的文档是否需要更新、影响哪个章节、修改方向是什么。表态结果作为后续回写执行的依据。在 writeback-clarification（澄清回写）执行前调用。
 ---
 
 # 各文档 Agent 表态
@@ -10,7 +10,7 @@ description: 用户澄清一条事实后，以四个文档 agent 的角色身份
 ## 何时使用
 
 - 用户澄清了某条事实（填写了 `00-clarifications.md` 中某项的「用户确认/补充」或「解决方案」），即将执行回写之前。
-- orchestrator 在调用 sync-clarification 方向二之前，先调用本技能收集各角色视角的判断。
+- orchestrator 在调用 `writeback-clarification` 之前，先调用本技能收集各角色视角的判断。
 - 用户显式说「先看看各文档需不需要改」「让各负责人表个态」等。
 
 ## 执行步骤
@@ -120,7 +120,7 @@ orchestrator 汇总四个表态，生成本轮「修改决策表」：
 | 条件 | 移交目标 |
 |------|---------|
 | 决策表存在冲突 / 执行时序依赖 / 新澄清触发（任一） | → 移交 `doc-agent-discussion` 技能进行结构化讨论 |
-| 以上均不存在，决策表无争议 | → 直接移交 `sync-clarification` 方向二执行回写 |
+| 以上均不存在，决策表无争议 | → 直接移交 `writeback-clarification` 执行回写 |
 
 ---
 
