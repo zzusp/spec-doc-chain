@@ -18,7 +18,7 @@ description: 输出当前需求文档链与交付进度的 ASCII 仪表盘摘要
 
 ## 输入与读取范围
 
-1. **解析目标需求目录**：按 `reference/multi-requirement.md` 的优先级确定目标目录（用户显式指定 > 当前编辑文件所在目录 > `spec/.active`（单行文本，内容为当前默认需求目录路径） > spec 下唯一需求目录 > 否则提示用户选择）。
+1. **解析目标需求目录**：按 `reference/multi-requirement.md` 的优先级确定目标目录（用户显式指定 > 当前编辑文件所在目录 > `spec/.state.json` active 字段 > spec 下唯一需求目录 > 否则提示用户选择）。
 2. 从该需求目录读取（存在则读取，不存在则记为缺失）：
    - `01-analysis.md`
    - `02-prd.md`

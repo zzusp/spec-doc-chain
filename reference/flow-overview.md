@@ -143,7 +143,7 @@
 | **前置** | 解析目标需求目录；读取 `02-prd.md`（辅助）、`03-tech.md`、`04-acceptance.md` 作为 spec 基准；读取 `05-delivery-log.md` 与 `delivery-rounds/` 以获取本轮涉及的代码范围。 |
 | **步骤** | 从 03/04 提取接口、模型、行为等锚点 → 在代码中搜索对应实现 → 标注「文档有·代码无」（D-SPEC）、「代码有·文档无」（D-IMPL）、「两者不一致」（D-DRIFT）与「文档滞后」（D-STALE） → 将结果汇总为 `spec-drift-report.md`，包含摘要表与逐条漂移详情及建议修复路径。 |
 | **出口** | 需求目录下新增 `spec-drift-report.md`，列出各类漂移数量与严重程度，并为每条漂移给出「建议由文档链修复」或「建议由交付流程修复」的后续路径。 |
-| **衔接** | 文档需更新时：提示用户通过 `doc-chain-orchestrator` 触发 `sync-clarification` 或 `cascade-update` 修正 02/03/04；代码需修复时：提示用户通过 `delivery-orchestrator` 开启新一轮 A-xxx 开发与验收；需用户裁决时：将问题追加为 C-xxx 写入 `00-clarifications.md`。 |
+| **衔接** | 文档需更新时：提示用户通过 `doc-chain-orchestrator` 或 `spec-doc-chat` 调度澄清回写流程（含 doc-agent-stance + writeback-clarification）或 `cascade-update` 修正 02/03/04；代码需修复时：提示用户通过 `delivery-orchestrator` 开启新一轮 A-xxx 开发与验收；需用户裁决时：将问题追加为 C-xxx 写入 `00-clarifications.md`。 |
 
 ---
 
