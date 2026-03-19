@@ -133,7 +133,77 @@ Agent 会解析意图并调度对应技能（文档链 → `spec-doc-chat`，交
 - **delivery**：实现阶段的完整交付闭环（开发→测试/验收→修复→再验收直至通过）；仅写需求文档时不强制。
 - **coding**：代码复用、文件约束、注释、根因修复与 YAGNI；仅编辑纯需求文档（.md）时可酌情适用。
 
-## 安装
+## 在 Claude Code 命令行中使用
+
+> 重要：本仓库当前是 **Cursor 插件项目**，不是 Claude Code 原生插件包。
+
+### 当前现状
+
+- `agents/`、`skills/`、`rules/`、`commands/`、`.cursor-plugin/plugin.json` 这一套结构，是**面向 Cursor 插件/规则体系**组织的。
+- 其中 `.cursor-plugin/plugin.json` 是 **Cursor 插件元数据**，**不是 Claude Code CLI 的原生加载格式**。
+- 因此，**直接在 Claude Code CLI 中打开本仓库，并不会自动把这些 agents / skills / rules 当成 Claude Code 原生能力加载**。
+
+### 在 Claude Code 里怎么用这个项目
+
+有两种方式：
+
+#### 方式一：把它当作普通项目文档来使用（立即可用）
+
+在 Claude Code 里进入本仓库目录后，可以直接让 Claude 读取本项目文档并按文档约定协作，例如：
+
+- 「先读 README.md 和 reference/quick-start.md，告诉我这个项目怎么用」
+- 「按 README 里的规范，帮我生成一套 spec 文档」
+- 「根据 templates/ 和 reference/ 约定，帮我补全当前需求的 PRD / 技术设计 / 验收清单」
+- 「按 `skills/spec-delivery-chat/SKILL.md` 的流程，帮我执行交付闭环」
+
+也就是说：**把这些 README / reference / skills / agents 文件当成项目内的“流程说明书”来让 Claude 遵循**。
+
+#### 方式二：迁移为 Claude Code 原生项目记忆/指令（推荐）
+
+如果你希望在 Claude Code 中获得更接近 Cursor 插件的体验，建议把关键约束整理到仓库根目录的 `CLAUDE.md` 中，让 Claude Code 在进入仓库时自动读取。例如可以把这些内容迁移进去：
+
+- 项目目标与核心理念（来自 `README.md` / `reference/core-philosophy.md`）
+- 文档链顺序与路径约定（来自 `reference/doc-types-and-order.md` / `reference/path-convention.md`）
+- 澄清回写、级联更新、交付闭环规则（来自 `skills/` 与 `rules/`）
+- 常用操作示例（来自 `reference/quick-start.md`）
+
+推荐最小做法：
+
+1. 新建仓库根目录 `CLAUDE.md`
+2. 写入：项目简介、文档路径规则、澄清流程、交付流程、常用指令示例
+3. 在 Claude Code 中进入该仓库后，直接自然语言操作
+
+### 建议的 Claude Code 使用姿势
+
+如果你暂时不迁移为 `CLAUDE.md`，建议在 Claude Code 里这样开场：
+
+```text
+请先阅读 README.md、reference/quick-start.md、reference/flow-overview.md、reference/glossary.md，理解这个项目的文档链与交付流程。后续严格按这些约定协作。
+```
+
+然后再继续说你的目标，例如：
+
+```text
+请按本项目规范，新建需求 user-center-refactor，先生成分析报告、PRD、技术设计、验收清单，再生成澄清文档。
+```
+
+或：
+
+```text
+请按本项目的 spec-delivery-chat 规则，对当前需求执行开发→验收→修复→再验收，直到全部 A-xxx 通过。
+```
+
+### 如果想真正适配 Claude Code
+
+后续可以做一轮专门适配，把当前 Cursor 结构整理成：
+
+- `CLAUDE.md`：Claude Code 自动加载的项目说明
+- 更精简的 `reference/`：用户手册
+- 保留 `templates/`：继续作为产物模板
+- 把当前 `skills/agents/rules` 中真正需要 Claude Code长期记住的约束，提炼进 `CLAUDE.md`
+
+这样 Claude Code 的使用体验会明显更自然。
+
 
 将本目录作为 Cursor 插件安装（项目级或用户级），确保 `.cursor-plugin/plugin.json` 存在。
 
